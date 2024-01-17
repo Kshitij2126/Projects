@@ -1,0 +1,63 @@
+{% from "_dropdown_nav.html" import dropdown_nav %}
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if not current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('auth.register')}}">Register</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('auth.landing_page')}}">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('auth.payment')}}"
+            >Payment Details</a
+          >
+        </li>
+        {#
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('game.play')}}">Play</a>
+        </li>
+        #}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('shop.shop_list')}}">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('shop.cart')}}">Cart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('shop.orders')}}">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('auth.profile')}}">Profile</a>
+        </li>
+        <!-- samples nav -->
+        {# {% set samples = [ ("sample.add", "Add"), ("sample.list", "List"), ]
+        %} {{dropdown_nav("Samples", samples)}} #}
+        <!-- roles nav (requires admin )-->
+        {% if current_user.has_role("Admin") %} {% set roles = [ ("roles.add",
+        "Add"), ("roles.list", "List"), ("roles.assign", "Assign") ] %}
+        {{dropdown_nav("Roles", roles)}} {% endif %}
+        <!-- items nav (requires admin )-->
+        {% if current_user.has_role("Admin") %} {% set roles = [ ("shop.item",
+        "Add"), ("shop.items", "List") ] %} {{dropdown_nav("Products", roles)}}
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('auth.logout')}}">Logout</a>
+        </li>
+        {% endif %}
+      </ul>
+      <span class="navbar-text">
+        {% if current_user.is_authenticated %} Balance:
+        {{current_user.get_balance()}} {% endif %}
+      </span>
+    </div>
+  </div>
+</nav>
