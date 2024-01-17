@@ -1,0 +1,113 @@
+{% extends "layout.html" %} {% block title %}Employee Directory{% endblock %} {%
+block content %}
+<div class="container-fluid">
+  <div class="h1 text-center">
+    {{request.args.get("company_name","")}} Employee Directory
+  </div>
+  <form method="GET">
+    {# TODO build a horizontal filter/sort form with first_name last_name email
+    company (provided) sort/order (using allowed_columns and provided partial
+    template) limit ensure all fields prefill with request arg data if provided
+    #} {#Added horizontal filter/sort form with first_name last_name email
+    company (provided) sort/order (using allowed_columns and provided partial
+    template) - Kshitij Aji, ka598, Dec 03 2022 #}
+    <div class="form-group mb-3">
+      <label for="first_name">First name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="first_name"
+        name="first_name"
+        placeholder="Enter first name"
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="last_name">Last name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="last_name"
+        name="last_name"
+        placeholder="Enter last name"
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="Enter email"
+      />
+    </div>
+    <div class="col-12">
+      <label class="visually-hidden" for="company">Company</label>
+      {% with val = request.args.get("company_name", '') %} {% include
+      "company_dropdown.html" %} {% endwith %}
+    </div>
+    {% with cols = allowed_list %} {% include "sort_filter.html" %} {% endwith
+    %}
+    <div class="form-group mb-3">
+      <label for="limit">Limit</label>
+      <input
+        type="text"
+        class="form-control"
+        id="limit"
+        name="limit"
+        placeholder="Set limit"
+      />
+    </div>
+    <span class="col-4">
+      <input type="submit" class="btn btn-primary" value="Filter" />
+    </span>
+    <span class="col-4">
+      <a href="?" class="btn btn-secondary">Reset</a>
+    </span>
+  </form>
+  <table class="table">
+    {% if rows and rows|length > 0 %}
+    <thead>
+      <tr class="text-capitalize">
+        {# generate th tags for each column to display #} {# IMPORTANT use table
+        column names as the headings, replace _ with space #}
+        <th>Employee id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>email</th>
+        <th>Company Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {# generate tr with td tags for each piece of data #} {# in the last
+      column add the following an edit button that passes the employee id to
+      employee edit a delete button that passes the employee id and the request
+      args to the employee delete route #} {%for row in rows%}
+      <tr>
+        <td>{{row.id}}</td>
+        <td>{{row.first_name}}</td>
+        <td>{{row.last_name}}</td>
+        <td>{{row.email}}</td>
+        <td>{{row.company_name}}</td>
+        <td>
+          <a href="/employee/edit?id={{row.id}}" class="btn btn-secondary"
+            >Edit</a
+          >
+          <a href="/employee/delete?id={{row.id}}" class="btn btn-danger"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {%endfor%}
+    </tbody>
+    {% else %}
+    <tbody>
+      <tr>
+        <td colspan="100%">No results to show</td>
+      </tr>
+    </tbody>
+    {% endif %}
+  </table>
+</div>
+{% endblock %}

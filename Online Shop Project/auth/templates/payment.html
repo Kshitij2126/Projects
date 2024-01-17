@@ -1,0 +1,13 @@
+{% extends "layout.html" %} {% block title %}Payment Information {% endblock %}
+{% block content %} {% from "_formhelpers.html" import render_field %}
+<div class="container-fluid">
+  <div class="h3">Payment Information</div>
+  <form method="POST">
+    {{ form.hidden_tag() }} {{render_field(form.customer_name)}}
+    {{render_field(form.shipping_address)}}
+    {{render_field(form.credit_card_number)}}
+    {{render_field(form.card_balance)}} {{form.submit_form(class="btn
+    btn-primary")}}
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% macro render_table(title,data, ignored = [], view =None, edit=None, delete=None) %}
+<div class="container-fluid">
+    <div class="h1">{{title}}</div>
+<table class="table bg-dark text-light">
+    <thead>
+        {% if data and data|length > 0 %}
+        <tr class="text-capitalize">
+            {% for r in data[0] %}
+                {% if r not in ignored %}
+                <th>{{r}}</th>
+                {% endif %}
+            {% endfor %}
+            {% if view or edit or delete %}
+            <th>Actions</th>
+            {% endif %}
+        </tr>
+        {%endif%}
+    </thead>
+    <tbody>
+        {% for r in data %}
+        <tr>
+            {% for k,v in r.items() %}
+            {% if k not in ignored %}
+            <td>{{v}}</td>
+            {% endif %}
+            {% endfor %}
+            {% if view or edit or delete %}
+            <td>
+                {% if view and r["id"] %}
+                <a href="{{url_for(view)}}?id={{r['id']}}">View</a>
+                {% endif %}
+                {% if edit and r["id"] %}
+                <a href="{{url_for(edit)}}?id={{r['id']}}">Edit</a>
+                {% endif %}
+                {% if delete and r["id"] %}
+                <a href="{{url_for(delete)}}?id={{r['id']}}">Delete</a>
+                {% endif %}
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% if not data %}
+        <tr>
+            <td colspan="100%">No results</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+</div>
+{% endmacro %}

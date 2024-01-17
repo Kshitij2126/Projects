@@ -1,0 +1,71 @@
+{% extends "layout.html" %} {% block title %}Add Company{% endblock %} {% block
+content %}
+<div class="container-fluid">
+  <div class="h1">Add Company</div>
+  <div>
+    <form method="POST">
+      {# generate fields with proper types for name address city website #} {#
+      use this for country/state selection #} {# Generated fields for name,
+      address, city, website and zip code - Kshitij Aji, ka598, Nov 29, 2022#}
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Enter Company Name"
+          name="name"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="address">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="Enter Company Address"
+          name="address"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="city">City</label>
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="Enter company city location"
+          name="city"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="website"> Website </label>
+        <input
+          type="text"
+          class="form-control"
+          id="website"
+          placeholder="Enter Company URL "
+          name="website"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="zip"> Zip Code </label>
+        <input
+          type="text"
+          class="form-control"
+          id="zip"
+          placeholder="Enter Zip Code"
+          name="zip"
+        />
+      </div>
+
+      {% include "country_state_selector.html" %}
+      <input type="submit" class="btn btn-primary" value="Save Company" />
+    </form>
+  </div>
+</div>
+{% endblock %}

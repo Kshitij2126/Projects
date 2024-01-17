@@ -1,0 +1,52 @@
+{% extends "layout.html" %} {% block title %}Edit Employee{% endblock %} {%
+block content %}
+<div class="container-fluid">
+  <div class="h1">Edit Employee</div>
+  <div>
+    <form method="POST">
+      {# generate fields with proper types for first_name last_name email and
+      prefill the fields with loaded employee data #} {#Generated fields for
+      first_name, last_name, email - Kshitij Aji, ka598, Dec 03, 2022#}
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="first name">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="first name"
+          placeholder="Enter First Name"
+          name="first_name"
+          value="{{row.first_name}}"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label class="form-label" for="last name">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="last name"
+          placeholder="Enter Last Name"
+          name="last_name"
+          value="{{row.last_name}}"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label class="form-label" for="email">Email ID</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          placeholder="Enter Email ID"
+          name="email"
+          value="{{row.email}}"
+        />
+      </div>
+
+      {# use the below for company selection #} {% include
+      "company_dropdown.html" %}
+
+      <input type="submit" class="btn btn-primary" value="Save Employee" />
+    </form>
+  </div>
+</div>
+{% endblock %}

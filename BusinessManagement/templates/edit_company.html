@@ -1,0 +1,79 @@
+{% extends "layout.html" %} {% block title %}Edit Company{% endblock %} {% block
+content %}
+<div class="container-fluid">
+  <div class="h1">Edit Company</div>
+  <div>
+    <form method="POST">
+      {# generate fields with proper types for name address city website and
+      prefill the fields with loaded company data #} {#Generated fields for name
+      address city website and prefill the fields with loaded company data -
+      Kshitij Aji, ka598, Dec 03, 2022#}
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Enter Company Name"
+          name="name"
+          value="{{row.name}}"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="address">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="Enter Company Address"
+          name="address"
+          value="{{row.address}}"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="city">City</label>
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="Enter company city location"
+          name="city"
+          value="{{row.city}}"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="website"> Website </label>
+        <input
+          type="text"
+          class="form-control"
+          id="website"
+          placeholder="Enter Company URL "
+          name="website"
+          value="{{row.website}}"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label" for="zip"> Zip Code </label>
+        <input
+          type="text"
+          class="form-control"
+          id="zip"
+          placeholder="Enter Zip Code"
+          name="zip"
+          value="{{row.zip}}"
+        />
+      </div>
+
+      {# use this for country/state selection #} {% include
+      "country_state_selector.html" %}
+
+      <input type="submit" class="btn btn-primary" value="Save Company" />
+    </form>
+  </div>
+</div>
+{% endblock %}
